@@ -3,34 +3,36 @@ package basico
 import "testing"
 
 func TestOla(t *testing.T) {
-	resultado := Ola()
-	esperado := "Ola, Mundo!"
 
+	verificarMensagemCorreta := func(t *testing.T, resultado, esperado string) {
+		t.Helper()
 
-   if resultado != esperado {
-	t.Errof("resultao: '%', esperado: '%',resultado, esperado")
+		if resultado != esperado {
+			t.Errorf("resultado '%s', esperado '%s'", resultado, esperado)
+		}
+
+	}
+
+	t.Run("diz 'Olá Mundo' quando o nome não for informado", func(t *testing.T) {
+		resultado := Ola("", "")
+		esperado := "Olá Mundo!"
+		verificarMensagemCorreta(t, resultado, esperado)
+	})
+
+	t.Run("diz o nome correto, quando o nome for informado", func(t *testing.T) {
+		resultado := Ola("Glêsio", "")
+		esperado := "Olá Glêsio!"
+		verificarMensagemCorreta(t, resultado, esperado)
+	})
+	t.Run("realizando saudação em espanhol", func(t *testing.T) {
+		resultado := Ola("Glêsio", "espanhol")
+		esperado := "Holla Glêsio!"
+		verificarMensagemCorreta(t, resultado, esperado)
+	})
+
+	t.Run("realizando saudação em frances", func(t *testing.T) {
+		resultado := Ola("Glêsio", "frances")
+		esperado := "Bonjour Glêsio!"
+		verificarMensagemCorreta(t, resultado, esperado)
+	})
 }
-}
-   func TestOlaComNome(t *testing.T) {
-
-	resultado := Ola("Maria Clara")
-	esperado := "Ola, Maria Clara!"
-
-    if resultado != esperado {
-	      t.Errof("resultao: '%', esperado: '%',resultado, esperado")
-
-    }
-}
-
-t.retur("devera realizar saudacao padrao", func(t *testing.T){
-	resultado := Ola("")
-	esperado := "Ola, Mundo!"
-	imprimirResultado(t, resultado, esperado)
-})
-
-t.retur("devera realizar saudacao com um  nome informado", func(t *testing.T){
-	resultado := Ola("Maria Clara")
-	esperado := "Ola, Maaria Clara !"
-	imprimirResultado(t, resultado, esperado)
-
-})
